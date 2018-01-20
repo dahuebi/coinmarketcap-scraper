@@ -94,12 +94,12 @@ def parseMarketCap(jsonDump, slug):
 
     # Covert data in document to wide format
     dataIntermediate = {}
-    targetFields = [str(key.replace('_data', '')) for key in rawData.keys()]
-    for field, fieldData in rawData.iteritems():
+    targetFields = [str(key.replace('_data', '')) for key in list(rawData.keys())]
+    for field, fieldData in rawData.items():
         for row in fieldData:
             time = int(row[0]/1000)
             if time not in dataIntermediate:
-                dataIntermediate[time] = dict(zip(targetFields, [None]*len(targetFields)))
+                dataIntermediate[time] = dict(list(zip(targetFields, [None]*len(targetFields))))
             dataIntermediate[time][field] = row[1]
 
     # Generate derived data & alter format
